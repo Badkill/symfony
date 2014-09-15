@@ -138,6 +138,21 @@ class OutputTest extends \PHPUnit_Framework_TestCase
         $output->writeln('<bar>foo</bar>');
         $this->assertEquals("<bar>foo</bar>\n", $output->output, '->writeln() do nothing when a style does not exist');
     }
+
+    public function testIfOutputIsntDecoratedWriteEmptyString()
+    {
+        $output = new TestOutput();
+
+        $this->assertEquals('', $output->ansiEscapeSequence("\033[1D"));
+    }
+
+    public function testIfOutputIsDecoratedWriteAnsiEscapeSequence()
+    {
+        $output = new TestOutput();
+        $output->setDecorated(true);
+
+        $this->assertEquals("\033[1D", $output->ansiEscapeSequence("\033[1D"));
+    }
 }
 
 class TestOutput extends Output

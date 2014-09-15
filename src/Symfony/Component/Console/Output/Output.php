@@ -155,6 +155,15 @@ abstract class Output implements OutputInterface
         }
     }
 
+    public function ansiEscapeSequence($text)
+    {
+        if ($this->isDecorated()) {
+            return $text;
+        }
+
+        return '';
+    }
+
     /**
      * Writes a message to the output.
      *

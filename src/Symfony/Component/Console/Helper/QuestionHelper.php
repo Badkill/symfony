@@ -195,7 +195,7 @@ class QuestionHelper extends Helper
                 if (0 === $numMatches && 0 !== $i) {
                     $i--;
                     // Move cursor backwards
-                    $output->write("\033[1D");
+                    $output->ansiEscapeSequence("\033[1D");
                 }
 
                 if ($i === 0) {
@@ -259,15 +259,15 @@ class QuestionHelper extends Helper
             }
 
             // Erase characters from cursor to end of line
-            $output->write("\033[K");
+            $output->ansiEscapeSequence("\033[K");
 
             if ($numMatches > 0 && -1 !== $ofs) {
                 // Save cursor position
-                $output->write("\0337");
+                $output->ansiEscapeSequence("\0337");
                 // Write highlighted text
-                $output->write('<hl>'.substr($matches[$ofs], $i).'</hl>');
+                $output->ansiEscapeSequence('<hl>'.substr($matches[$ofs], $i).'</hl>');
                 // Restore cursor position
-                $output->write("\0338");
+                $output->ansiEscapeSequence("\0338");
             }
         }
 
